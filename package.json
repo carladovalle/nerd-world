@@ -15,7 +15,7 @@
     "express",
     "nodejs"
   ],
-  "author": "",
+  "author": "Carla",
   "license": "ISC",
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
