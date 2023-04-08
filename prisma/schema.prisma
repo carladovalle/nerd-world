@@ -8,8 +8,17 @@ datasource db {
 }
 
 model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique @db.VarChar(255)
+  password  String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  Session   Session[]
+}
+
+model Session {
   id        Int      @id @default(autoincrement())
-  email     String   @unique @db.VarChar(255)
-  password  String   @db.VarChar(255)
+  userId    Int
+  token     String
   createdAt DateTime @default(now())
+  User      User     @relation(fields: [userId], references: [id])
 }

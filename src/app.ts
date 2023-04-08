@@ -4,15 +4,16 @@ import cors from "cors";
 
 import { connectDb, disconnectDB } from "./config/database";
 
-import {
-  usersRouter
-} from "./routers/users-router";
+import {usersRouter} from "./routers/users-router";
+import {authenticationRouter} from "./routers/authentication-router";
 
 const app = express();
 app
   .use(cors())
   .use(express.json())
   .use("/users", usersRouter)
+  .use("/users", usersRouter)
+  .use("/auth", authenticationRouter)
 
 export async function init(): Promise<Express> {
   connectDb();
