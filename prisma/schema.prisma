@@ -7,32 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique @db.VarChar(255)
-  password  String    @db.VarChar(255)
-  createdAt DateTime  @default(now())
-  Session   Session[]
-}
-
-model Session {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  token     String
-  createdAt DateTime @default(now())
-  User      User     @relation(fields: [userId], references: [id])
-}
-
 model Categories {
-  id    Int     @id @default(autoincrement())
+  id    String  @id
   name  String  @unique @db.VarChar(255)
   Types Types[]
 }
 
 model ProductTypes {
-  id        Int      @id @default(autoincrement())
-  productId Int
-  typeId    Int
+  id        String   @id
+  productId String
+  typeId    String
   Products  Products @relation(fields: [productId], references: [id])
   Types     Types    @relation(fields: [typeId], references: [id])
 
@@ -40,7 +24,7 @@ model ProductTypes {
 }
 
 model Products {
-  id           Int            @id @default(autoincrement())
+  id           String         @id
   name         String         @unique @db.VarChar(255)
   description  String         @db.VarChar(500)
   image        String
@@ -49,10 +33,26 @@ model Products {
   ProductTypes ProductTypes[]
 }
 
+model Session {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  token     String   @unique
+  createdAt DateTime @default(now())
+  User      User     @relation(fields: [userId], references: [id])
+}
+
 model Types {
-  id           Int            @id @default(autoincrement())
+  id           String         @id
   name         String         @unique @db.VarChar(255)
-  categoryId   Int
+  categoryId   String
   ProductTypes ProductTypes[]
   Categories   Categories     @relation(fields: [categoryId], references: [id])
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique @db.VarChar(255)
+  password  String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  Session   Session[]
 }
