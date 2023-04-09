@@ -22,3 +22,37 @@ model Session {
   createdAt DateTime @default(now())
   User      User     @relation(fields: [userId], references: [id])
 }
+
+model Categories {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique @db.VarChar(255)
+  Types Types[]
+}
+
+model ProductTypes {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  typeId    Int
+  Products  Products @relation(fields: [productId], references: [id])
+  Types     Types    @relation(fields: [typeId], references: [id])
+
+  @@unique([productId, typeId])
+}
+
+model Products {
+  id           Int            @id @default(autoincrement())
+  name         String         @unique @db.VarChar(255)
+  description  String         @db.VarChar(500)
+  image        String
+  price        Int
+  stock        Int
+  ProductTypes ProductTypes[]
+}
+
+model Types {
+  id           Int            @id @default(autoincrement())
+  name         String         @unique @db.VarChar(255)
+  categoryId   Int
+  ProductTypes ProductTypes[]
+  Categories   Categories     @relation(fields: [categoryId], references: [id])
+}

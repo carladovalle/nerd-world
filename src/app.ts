@@ -6,6 +6,7 @@ import { connectDb, disconnectDB } from "./config/database";
 
 import {usersRouter} from "./routers/users-router";
 import {authenticationRouter} from "./routers/authentication-router";
+import { categoriesRouter } from "./routers/categories-router";
 
 const app = express();
 app
@@ -14,6 +15,7 @@ app
   .use("/users", usersRouter)
   .use("/users", usersRouter)
   .use("/auth", authenticationRouter)
+  .use("/categories", categoriesRouter)
 
 export async function init(): Promise<Express> {
   connectDb();
