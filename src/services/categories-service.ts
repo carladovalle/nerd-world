@@ -6,8 +6,15 @@ async function getCategoriesWithTypes() {
   return categories;
 }
 
+async function getProductsByCategory(categoryId: number) {
+  const products = await categoryRepository.findByCategory(categoryId);
+  
+  return products;
+}
+
 const categoriesService = {
-  getCategoriesWithTypes
+  getCategoriesWithTypes,
+  getProductsByCategory
 };
 
 export default categoriesService;

@@ -1,20 +1,9 @@
 import { prisma } from "../config/database";
 
-async function findById(id: string) {
+async function findById(id: number) {
   return prisma.products.findUnique({
     where: {
       id
-    }
-  });
-}
-
-async function findByType(typeId: string) {
-  return prisma.productTypes.findMany({
-    where: {
-      typeId
-    },
-    include: {
-      Products: true
     }
   });
 }
@@ -33,11 +22,19 @@ async function findMany() {
   return prisma.products.findMany()
 }
 
+async function findProductById(productId: number) {
+  return prisma.products.findFirst({
+    where: {
+      id: productId,
+    }
+  });
+}
+
 const productsRepository = {
   findById,
-  findByType,
   findByName,
-  findMany
+  findMany,
+  findProductById
 };
 
 export default productsRepository;

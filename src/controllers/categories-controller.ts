@@ -11,3 +11,14 @@ export async function getCategories(req: Request, res: Response) {
     return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
+
+export async function getProductsByCategory(req: Request, res: Response) {
+  const { categoryId } = req.params;
+  try {
+    const products = await categoriesService.getProductsByCategory(Number(categoryId));
+
+    return res.status(httpStatus.OK).send(products);
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}

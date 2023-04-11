@@ -1,16 +1,5 @@
 import productsRepository from "../repositories/products-repository";
 
-async function getProductsByType(typeId: string) {
-  const response = await productsRepository.findByType(typeId);
-
-  const products = response.map(response => {
-    const product = response.productId;
-    return product;
-  });
-  
-  return products;
-}
-
 async function getProductsByName(keyword: string) {
   const products = await productsRepository.findByName(keyword);
   
@@ -23,11 +12,16 @@ async function getProductsBySell() {
   return products;
 }
 
+async function getProductById(productId: number) {
+
+  const product = await productsRepository.findProductById(productId);
+  return product;
+}
 
 const productsService = {
-  getProductsByType,
   getProductsByName,
-  getProductsBySell
+  getProductsBySell,
+  getProductById
 };
 
 export default productsService;
