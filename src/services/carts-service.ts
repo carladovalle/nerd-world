@@ -1,5 +1,5 @@
-/*import cartRepository from "../repositories/cart-repository";
-import productsRepository from "@/repositories/products-repository";
+import cartRepository from "../repositories/cart-repository";
+import productsRepository from "../repositories/products-repository";
 
 import { unauthorizedError } from "../errors/unauthorized-error";
 
@@ -14,7 +14,7 @@ export async function addToCart(userId: number, productId: number, amount: numbe
   await getOrCreateCart(userId);
 
   const cart = await cartRepository.findByUserId(userId);
-  const cartId = cart.id;
+  const cartId = cart.id; 
 
   return cartRepository.addToCart({cartId, productId, amount});
 }
@@ -30,7 +30,7 @@ async function getOrCreateCart(userId: number) {
   const cart = await cartRepository.findByUserId(userId);
 
   if(!cart) {
-    await cartRepository.createCart(userId);
+    await cartRepository.createCart(Number(userId));
   }
 }
 
@@ -39,4 +39,4 @@ const cartService = {
   addToCart
 };
 
-export default cartService;*/
+export default cartService;

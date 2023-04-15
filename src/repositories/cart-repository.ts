@@ -1,4 +1,4 @@
-/*import { prisma } from "../config/database";
+import { prisma } from "../config/database";
 import { Prisma } from "@prisma/client";
 
 async function findByUserId(userId: number) {
@@ -21,7 +21,7 @@ async function createCart(userId: number) {
   return await prisma.carts.create({
     data: {
       userId,
-      status: "RESERVED"
+      status: "RESERVED",
     }
   });
 }
@@ -50,4 +50,4 @@ const cartRepository = {
   addToCart
 };
 
-export default cartRepository;*/
+export default cartRepository;

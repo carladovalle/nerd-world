@@ -5,9 +5,12 @@ async function findManyWithTypes() {
 }
 
 async function findByCategory(categoryId: number) {
-  return prisma.categories.findMany({
+  return prisma.categories.findUnique({
+    where: {
+      id: categoryId,
+    },
     include: {
-      Products: true
+      Products: true,
     }
   });
 }

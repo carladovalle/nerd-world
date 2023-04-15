@@ -57,18 +57,6 @@ model Categories {
   Products Products[]
 }
 
-model Products {
-  id           Int            @id @default(autoincrement())
-  name         String         @db.VarChar(255)
-  image        String
-  description  String         @db.VarChar(500)
-  price        Int
-  stock        Int
-  categoryId   Int
-  CartProducts CartProducts[]
-  Categories   Categories     @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
 model CartProducts {
   id        Int      @id @default(autoincrement())
   cartId    Int
@@ -81,11 +69,21 @@ model CartProducts {
 model Carts {
   id           Int            @id @default(autoincrement())
   userId       Int
-  created_at   DateTime       @default(now())
-  updated_at   DateTime
   status       PaymentStatus
   CartProducts CartProducts[]
   User         User           @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Products {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(255)
+  image        String
+  description  String         @db.VarChar(500)
+  price        Int
+  stock        Int
+  categoryId   Int
+  CartProducts CartProducts[]
+  Categories   Categories     @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum PaymentStatus {

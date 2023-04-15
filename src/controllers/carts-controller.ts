@@ -1,4 +1,4 @@
-/*import cartService from "../services/carts-service";
+import cartService from "../services/carts-service";
 import { AuthenticatedRequest } from "../middlewares/authentication-middleware";
 import { Response } from "express";
 import { CartProducts } from "@prisma/client";
@@ -31,4 +31,4 @@ export async function addToCart(req: AuthenticatedRequest, res: Response) {
       return res.sendStatus(httpStatus.UNAUTHORIZED);
     }
   }
-}*/
+}

@@ -8,6 +8,7 @@ import {usersRouter} from "./routers/users-router";
 import {authenticationRouter} from "./routers/authentication-router";
 import { categoriesRouter } from "./routers/categories-router";
 import { productsRouter } from "./routers/products-router";
+import { cartsRouter } from "./routers/carts-router";
 
 const app = express();
 app
@@ -18,6 +19,7 @@ app
   .use("/auth", authenticationRouter)
   .use("/categories", categoriesRouter)
   .use("/products", productsRouter)
+  .use("/carts", cartsRouter)
 
 export async function init(): Promise<Express> {
   connectDb();

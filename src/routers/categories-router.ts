@@ -6,6 +6,6 @@ const categoriesRouter = Router();
 
 categoriesRouter
     .get("/", getCategories)
-    .get("/categories/:categoryId", getProductsByCategory)
+    .get("/:categoryId", getProductsByCategory)
 
 export { categoriesRouter };
