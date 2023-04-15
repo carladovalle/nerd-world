@@ -72,6 +72,7 @@ model Carts {
   status       PaymentStatus
   CartProducts CartProducts[]
   User         User           @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Payments     Payments[]
 }
 
 model Products {
@@ -84,6 +85,15 @@ model Products {
   categoryId   Int
   CartProducts CartProducts[]
   Categories   Categories     @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Payments {
+  id             Int    @id @default(autoincrement())
+  value          Int
+  cardIssuer     String
+  cardLastdigits String
+  cartId         Int
+  Carts          Carts  @relation(fields: [cartId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum PaymentStatus {
