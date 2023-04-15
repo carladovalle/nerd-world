@@ -1,4 +1,4 @@
-/*import { AuthenticatedRequest } from "../middlewares/authentication-middleware";
+import { AuthenticatedRequest } from "../middlewares/authentication-middleware";
 import enrollmentsService from "../services/enrollments-service";
 import { Response } from "express";
 import httpStatus from "http-status";
@@ -39,4 +39,4 @@ export async function getAddressFromCEP(req: AuthenticatedRequest, res: Response
       return res.sendStatus(httpStatus.NOT_FOUND);
     }
   }
-}*/
+}

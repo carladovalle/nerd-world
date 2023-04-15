@@ -1,10 +1,10 @@
-/*import { prisma } from "../config/database";
+import { prisma } from "../config/database";
 import { Address } from "@prisma/client";
 
 async function upsert(enrollmentId: number, createdAddress: CreateAddressParams, updatedAddress: UpdateAddressParams) {
   return prisma.address.upsert({
     where: {
-      enrollmentId,
+      id: enrollmentId,
     },
     create: {
       ...createdAddress,
@@ -14,11 +14,11 @@ async function upsert(enrollmentId: number, createdAddress: CreateAddressParams,
   });
 }
 
-export type CreateAddressParams = Omit<Address, "id" | "createdAt" | "enrollmentId">;
+export type CreateAddressParams = Omit<Address, "id" | "enrollmentId">;
 export type UpdateAddressParams = CreateAddressParams;
 
 const addressRepository = {
   upsert,
 };
 
-export default addressRepository;*/
+export default addressRepository;

@@ -1,14 +1,18 @@
 import paymentRepository from "../repositories/payment-repository";
-//import enrollmentRepository from "../repositories/enrollment-repository";
+import enrollmentRepository from "../repositories/enrollment-repository";
 import cartRepository from "../repositories/cart-repository";
 
 import { unauthorizedError } from "../errors/unauthorized-error";
 
 export async function processPayment(userId: number, params: paymentParams) {
-  
+
+  const enrollment = await enrollmentRepository.findByUserId(userId);
   const cart = await cartRepository.findByUserId(userId);
   
+  if( !enrollment || !cart ) throw unauthorizedError();
+
   const paymentData = {
+    enrollmentId: enrollment.id,
     cartId: cart.id,
     value: params.value,
     cardIssuer: params.issuer,

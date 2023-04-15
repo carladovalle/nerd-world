@@ -25,32 +25,6 @@ model User {
   Session    Session[]
 }
 
-model Address {
-  id            Int        @id @default(autoincrement())
-  cep           String     @db.VarChar(255)
-  street        String     @db.VarChar(255)
-  city          String     @db.VarChar(255)
-  state         String     @db.VarChar(255)
-  number        String     @db.VarChar(255)
-  neighborhood  String     @db.VarChar(255)
-  addressDetail String?    @db.VarChar(255)
-  enrollmentId  Int
-  createdAt     DateTime   @default(now())
-  Enrollment    Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model Enrollment {
-  id        Int       @id @default(autoincrement())
-  name      String    @db.VarChar(255)
-  cpf       String    @db.VarChar(255)
-  birthday  DateTime
-  phone     String    @db.VarChar(255)
-  userId    Int
-  createdAt DateTime  @default(now())
-  Address   Address[]
-  User      User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
 model Categories {
   id       Int        @id @default(autoincrement())
   name     String     @db.VarChar(255)
@@ -94,6 +68,30 @@ model Payments {
   cardLastdigits String
   cartId         Int
   Carts          Carts  @relation(fields: [cartId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Address {
+  id            Int        @id @default(autoincrement())
+  cep           String     @db.VarChar(255)
+  street        String     @db.VarChar(255)
+  city          String     @db.VarChar(255)
+  state         String     @db.VarChar(255)
+  number        String     @db.VarChar(255)
+  neighborhood  String     @db.VarChar(255)
+  addressDetail String?    @db.VarChar(255)
+  enrollmentId  Int
+  Enrollment    Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Enrollment {
+  id       Int       @id @default(autoincrement())
+  name     String    @db.VarChar(255)
+  cpf      String    @db.VarChar(255)
+  birthday DateTime
+  phone    String    @db.VarChar(255)
+  userId   Int
+  Address  Address[]
+  User     User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum PaymentStatus {

@@ -1,4 +1,4 @@
-/*import addressRepository, { CreateAddressParams } from "../repositories/address-repository";
+import addressRepository, { CreateAddressParams } from "../repositories/address-repository";
 import enrollmentRepository, { CreateEnrollmentParams } from "../repositories/enrollment-repository";
 import { notFoundError } from "../errors/not-found-error";
 import { exclude } from "@/utils/prisma-utils";
@@ -37,7 +37,7 @@ async function getOneWithAddressByUserId(userId: number): Promise<GetOneWithAddr
 
   if (!enrollmentWithAddress) throw notFoundError();
 
-  const firstAddress = enrollmentWithAddress.Address;
+  const [firstAddress] = enrollmentWithAddress.Address;
   const address = getFirstAddress(firstAddress);
 
   return {
@@ -87,4 +87,4 @@ const enrollmentsService = {
   getAddressFromCEP
 };
 
-export default enrollmentsService;*/
+export default enrollmentsService;

@@ -9,7 +9,6 @@ CREATE TABLE "Address" (
     "neighborhood" VARCHAR(255) NOT NULL,
     "addressDetail" VARCHAR(255),
     "enrollmentId" INTEGER NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Address_pkey" PRIMARY KEY ("id")
 );
@@ -22,7 +21,6 @@ CREATE TABLE "Enrollment" (
     "birthday" TIMESTAMP(3) NOT NULL,
     "phone" VARCHAR(255) NOT NULL,
     "userId" INTEGER NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Enrollment_pkey" PRIMARY KEY ("id")
 );

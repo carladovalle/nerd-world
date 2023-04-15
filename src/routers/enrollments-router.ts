@@ -1,4 +1,4 @@
-/*import { Router } from "express";
+import { Router } from "express";
 import { authenticateToken } from "../middlewares/authentication-middleware";
 import { validateBody } from "../middlewares/validation-middleware";
 import { getEnrollmentByUser, postCreateOrUpdateEnrollment, getAddressFromCEP } from "../controllers/enrollments-controller";
@@ -12,4 +12,4 @@ enrollmentsRouter
   .get("/", getEnrollmentByUser)
   .post("/", validateBody(createEnrollmentSchema), postCreateOrUpdateEnrollment);
 
-export { enrollmentsRouter };*/
+export { enrollmentsRouter };
