@@ -30,11 +30,23 @@ async function findProductById(productId: number) {
   });
 }
 
+async function findByType(typeId: number) {
+  return prisma.productTypes.findMany({
+    where: {
+      typeId
+    },
+    include: {
+      Products: true
+    }
+  });
+}
+
 const productsRepository = {
   findById,
   findByName,
   findMany,
-  findProductById
+  findProductById,
+  findByType
 };
 
 export default productsRepository;

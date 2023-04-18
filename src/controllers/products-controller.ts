@@ -37,3 +37,14 @@ export async function getProductId(req: Request, res: Response) {
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }
+
+export async function getProductsByType(req: Request, res: Response) {
+  const { typeId } = req.params;
+  try {
+    const products = await productsService.getProductsByType(Number(typeId));
+
+    return res.status(httpStatus.OK).send(products);
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}

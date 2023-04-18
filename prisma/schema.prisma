@@ -7,69 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Session {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  token     String   @unique
-  createdAt DateTime @default(now())
-  User      User     @relation(fields: [userId], references: [id])
-}
-
-model User {
-  id         Int          @id @default(autoincrement())
-  email      String       @unique @db.VarChar(255)
-  password   String       @db.VarChar(255)
-  createdAt  DateTime     @default(now())
-  Carts      Carts[]
-  Enrollment Enrollment[]
-  Session    Session[]
-}
-
-model Categories {
-  id       Int        @id @default(autoincrement())
-  name     String     @db.VarChar(255)
-  Products Products[]
-}
-
-model CartProducts {
-  id        Int      @id @default(autoincrement())
-  cartId    Int
-  productId Int
-  amount    Int?
-  Carts     Carts    @relation(fields: [cartId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Products  Products @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model Carts {
-  id           Int            @id @default(autoincrement())
-  userId       Int
-  status       PaymentStatus
-  CartProducts CartProducts[]
-  User         User           @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Payments     Payments[]
-}
-
-model Products {
-  id           Int            @id @default(autoincrement())
-  name         String         @db.VarChar(255)
-  image        String
-  description  String         @db.VarChar(500)
-  price        Int
-  stock        Int
-  categoryId   Int
-  CartProducts CartProducts[]
-  Categories   Categories     @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model Payments {
-  id             Int    @id @default(autoincrement())
-  value          Int
-  cardIssuer     String
-  cardLastdigits String
-  cartId         Int
-  Carts          Carts  @relation(fields: [cartId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
 model Address {
   id            Int        @id @default(autoincrement())
   cep           String     @db.VarChar(255)
@@ -83,15 +20,96 @@ model Address {
   Enrollment    Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
+model CartProducts {
+  id        Int      @id @default(autoincrement())
+  cartId    Int
+  productId Int
+  amount    Int
+  Carts     Carts    @relation(fields: [cartId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Products  Products @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Carts {
+  id           Int            @id @default(autoincrement())
+  userId       Int
+  status       PaymentStatus
+  CartProducts CartProducts[]
+  User         User           @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Payments     Payments[]
+}
+
+model Categories {
+  id    Int     @id @default(autoincrement())
+  name  String  @db.VarChar(255)
+  Types Types[]
+}
+
 model Enrollment {
-  id       Int       @id @default(autoincrement())
-  name     String    @db.VarChar(255)
-  cpf      String    @db.VarChar(255)
+  id       Int        @id @default(autoincrement())
+  name     String     @db.VarChar(255)
+  cpf      String     @db.VarChar(255)
   birthday DateTime
-  phone    String    @db.VarChar(255)
+  phone    String     @db.VarChar(255)
   userId   Int
   Address  Address[]
-  User     User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  User     User       @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Payments Payments[]
+}
+
+model Payments {
+  id             Int        @id @default(autoincrement())
+  value          Int
+  cardIssuer     String
+  cardLastDigits String
+  cartId         Int
+  enrollmentId   Int
+  Carts          Carts      @relation(fields: [cartId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Enrollment     Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model ProductTypes {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  typeId    Int
+  Products  Products @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Types     Types    @relation(fields: [typeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Products {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(255)
+  description  String         @db.VarChar(500)
+  price        Int
+  stock        Int
+  image        String
+  CartProducts CartProducts[]
+  ProductTypes ProductTypes[]
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  token     String   @unique
+  createdAt DateTime @default(now())
+  User      User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Types {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(255)
+  categoryId   Int
+  ProductTypes ProductTypes[]
+  Categories   Categories     @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model User {
+  id         Int          @id @default(autoincrement())
+  email      String       @unique @db.VarChar(255)
+  password   String?      @db.VarChar(255)
+  createdaAt DateTime     @default(now())
+  Carts      Carts[]
+  Enrollment Enrollment[]
+  Session    Session[]
 }
 
 enum PaymentStatus {

@@ -18,10 +18,22 @@ async function getProductById(productId: number) {
   return product;
 }
 
+async function getProductsByType(typeId: number) {
+  const response = await productsRepository.findByType(typeId);
+
+  const products = response.map(response => {
+    const product = response.Products;
+    return product;
+  });
+  
+  return products;
+}
+
 const productsService = {
   getProductsByName,
   getProductsBySell,
-  getProductById
+  getProductById,
+  getProductsByType
 };
 
 export default productsService;

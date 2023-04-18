@@ -5,7 +5,6 @@ import { listCartProducts, addToCart } from "../controllers/carts-controller";
 const cartsRouter = Router();
 
 cartsRouter
-  .all("/*", authenticateToken)
   .get("/", listCartProducts)
   .post("/", addToCart)
 

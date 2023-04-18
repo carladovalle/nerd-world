@@ -16,7 +16,7 @@ export async function processPayment(userId: number, params: paymentParams) {
     cartId: cart.id,
     value: params.value,
     cardIssuer: params.issuer,
-    cardLastdigits: params.number.toString().slice(-4),
+    cardLastDigits: params.number.toString().slice(-4),
   };
 
   return await paymentRepository.processPayment(paymentData);
