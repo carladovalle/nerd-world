@@ -14,6 +14,17 @@ export async function createUser({ email, password }: CreateUserParams): Promise
   });
 }
 
+export async function createAuthUser({ email }: CreateAuthUserParams): Promise<User> {
+  const userWithSameEmail = await userRepository.findByEmail(email);
+  if (userWithSameEmail) {
+    return;
+  }
+
+  return userRepository.create({
+    email
+  });
+}
+
 async function validateUniqueEmailOrFail(email: string) {
   const userWithSameEmail = await userRepository.findByEmail(email);
   if (userWithSameEmail) {
@@ -22,9 +33,11 @@ async function validateUniqueEmailOrFail(email: string) {
 }
 
 export type CreateUserParams = Pick<User, "email" | "password">;
+export type CreateAuthUserParams = Pick<User, "email">;
 
 const userService = {
   createUser,
+  createAuthUser
 };
 
 export default userService;

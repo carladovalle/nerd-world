@@ -4,8 +4,8 @@ import cors from "cors";
 
 import { connectDb, disconnectDB } from "./config/database";
 
-import {usersRouter} from "./routers/users-router";
-import {authenticationRouter} from "./routers/authentication-router";
+import { usersRouter } from "./routers/users-router";
+import { authenticationRouter } from "./routers/authentication-router";
 import { categoriesRouter } from "./routers/categories-router";
 import { productsRouter } from "./routers/products-router";
 import { cartsRouter } from "./routers/carts-router";
@@ -15,7 +15,6 @@ const app = express();
 app
   .use(cors())
   .use(express.json())
-  .use("/users", usersRouter)
   .use("/users", usersRouter)
   .use("/auth", authenticationRouter)
   .use("/categories", categoriesRouter)

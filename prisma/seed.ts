@@ -6,7 +6,7 @@ async function main() {
     let categories = await prisma.categories.findMany();
     if (categories.length === 0) {
         await prisma.categories.create({
-        data: {name: "Vestuario"},
+        data: {name: "Vestuário"},
         });
         await prisma.categories.create({
         data: {name: "Decoração"},

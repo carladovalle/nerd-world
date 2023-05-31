@@ -12,6 +12,9 @@ async function findByCategory(categoryId: number) {
   return prisma.categories.findUnique({
     where: {
       id: categoryId,
+    },
+    include: {
+      Types: true
     }
   });
 }

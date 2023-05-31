@@ -7,8 +7,17 @@ async function create(data: Prisma.SessionUncheckedCreateInput) {
   });
 }
 
+async function deleteByToken(token: string) {
+  return prisma.session.delete({
+    where: {
+      token
+    }
+  });
+}
+
 const sessionRepository = {
   create,
+  deleteByToken
 };
 
 export default sessionRepository;
